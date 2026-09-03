@@ -2,10 +2,7 @@ import "#/styles/globals.css";
 import type {Metadata} from "next";
 import {Rubik} from "next/font/google";
 
-const rubik = Rubik({
-  weight: ["300", "500", "700", "900"],
-  variable: "--font-sans"
-});
+const rubik = Rubik({weight: ["300", "500", "700", "900"], variable: "--font-sans"});
 
 export const metadata: Metadata = {
   title: "Device Manager App",
