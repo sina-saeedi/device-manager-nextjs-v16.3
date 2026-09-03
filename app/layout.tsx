@@ -1,6 +1,8 @@
-import "#/styles/globals.css";
 import type {Metadata} from "next";
 import {Rubik} from "next/font/google";
+import {AppSidebar} from "#/components/app-sidebar";
+import "#/styles/globals.css";
+import {Providers} from "./providers";
 
 const rubik = Rubik({weight: ["300", "500", "700", "900"], variable: "--font-sans"});
 
@@ -12,7 +14,11 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: LayoutProps<"/">) {
   return (
     <html dir="rtl" lang="fa" className={`dark antialiased ${rubik.variable}`}>
-      <body>{children}</body>
+      <Providers>
+        <body>
+          <AppSidebar>{children}</AppSidebar>
+        </body>
+      </Providers>
     </html>
   );
 }

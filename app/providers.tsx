@@ -1,6 +1,7 @@
-import {TooltipProvider} from "#/components/ui/tooltip";
-import {ReactNode} from "react";
+"use client";
 import {DirectionProvider} from "@base-ui/react";
+import {ReactNode} from "react";
+import {TooltipProvider} from "#/components/ui/tooltip";
 
 type Props = {children: ReactNode};
 
