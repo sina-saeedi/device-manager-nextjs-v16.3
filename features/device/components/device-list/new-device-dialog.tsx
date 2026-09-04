@@ -11,9 +11,13 @@ import {Input} from "#/components/ui/input";
 import {Label} from "#/components/ui/label";
 import {RadioGroup, RadioGroupItem} from "#/components/ui/radio-group";
 import {addDeviceAction} from "../../actions/add-device";
-import {DeviceSchema, deviceSchema} from "../../models/device";
+import {Device, DeviceSchema, deviceSchema} from "../../models/device";
 
-export function AddDeviceDialog() {
+type AddDeviceDialogProps = {
+  onAddOptimistic: (device: Device) => void;
+};
+
+export function AddDeviceDialog({onAddOptimistic}: AddDeviceDialogProps) {
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
   const {
@@ -28,10 +32,11 @@ export function AddDeviceDialog() {
   });
 
   function onSubmit(values: DeviceSchema) {
+    setOpen(false);
     startTransition(async () => {
-      await addDeviceAction(values);
-      setOpen(false);
+      onAddOptimistic({...values, lastPing: "-", id: String(Math.floor(Math.random() * 1000))});
       reset();
+      await addDeviceAction(values);
     });
   }
 
