@@ -8,9 +8,20 @@ const devices: Device[] = [
   {id: "4", name: "Access-Point-04", ip: "192.168.1.4", status: "warning", lastPing: "۱ ماه پیش"}
 ];
 
-export async function fetchDevices() {
+type FetchDevicesParams = {
+  q?: string;
+  status?: Device["status"][];
+};
+
+export async function fetchDevices({status = [], q = ""}: FetchDevicesParams) {
   await sleep();
-  return devices;
+  const query = q.trim().toLowerCase();
+
+  return devices.filter((device) => {
+    const statusMatches = status.length === 0 || status.includes(device.status);
+    const nameMatches = query === "" || device.name.trim().toLowerCase().includes(query);
+    return statusMatches && nameMatches;
+  });
 }
 
 export async function addDevice(device: Device) {
