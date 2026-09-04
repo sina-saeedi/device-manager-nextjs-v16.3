@@ -5,7 +5,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function randomSleep(minMs = 300, maxMs = 1000) {
-  const delay = Math.floor(Math.random() * (maxMs - minMs + 1)) + minMs;
+export async function sleep(delay: number = 500) {
   return new Promise((resolve) => setTimeout(resolve, delay));
 }
