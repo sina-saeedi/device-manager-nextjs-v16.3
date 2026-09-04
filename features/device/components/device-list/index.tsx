@@ -1,6 +1,7 @@
-import {fetchDevices} from "../api";
-import {Device} from "../types";
-import {DeviceCard, DeviceCardSkeleton} from "./device-card";
+import {AddDeviceDialog} from "#/features/device/components/device-list/new-device-dialog";
+import {fetchDevices} from "../../api";
+import {Device} from "../../models/device";
+import {DeviceCard, DeviceCardSkeleton} from "../device-card";
 
 export async function DeviceList(props: PageProps<"/device">) {
   const searchParams = await props.searchParams;
@@ -19,8 +20,9 @@ export async function DeviceList(props: PageProps<"/device">) {
 
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {devices.map(({id, ...device}) => (
-        <DeviceCard key={id} {...device} />
+      <AddDeviceDialog />
+      {devices.map((device) => (
+        <DeviceCard key={device.id} {...device} />
       ))}
     </div>
   );

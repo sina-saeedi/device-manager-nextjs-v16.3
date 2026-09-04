@@ -1,7 +1,8 @@
 import {Card, CardContent, CardHeader, CardTitle} from "#/components/ui/card";
 import {Skeleton} from "#/components/ui/skeleton";
 import {cn} from "#/lib/utils";
-import {Device} from "../types";
+import {Device} from "../models/device";
+import {DeviceCardDeleteButton} from "./device-card-delete-button";
 
 const STATUS_MAPPING: Record<Device["status"], {label: string; class: string}> = {
   online: {
@@ -18,11 +19,12 @@ const STATUS_MAPPING: Record<Device["status"], {label: string; class: string}> =
   }
 } as const;
 
-export function DeviceCard({name, ip, status, lastPing}: Omit<Device, "id">) {
+export function DeviceCard({id, name, ip, status, lastPing}: Device) {
   return (
-    <Card className="shadow-none">
-      <CardHeader className="pb-2">
+    <Card className="pt-4 shadow-none">
+      <CardHeader className="flex items-center justify-between pb-2">
         <CardTitle className="text-base font-medium">{name}</CardTitle>
+        <DeviceCardDeleteButton id={id} />
       </CardHeader>
       <CardContent className="space-y-1.5 text-sm">
         <div className="text-muted-foreground flex justify-between">

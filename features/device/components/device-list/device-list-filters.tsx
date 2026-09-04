@@ -13,7 +13,7 @@ import {
   SelectValue
 } from "#/components/ui/select";
 import {searchParams} from "#/lib/search-params";
-import {Device} from "../types";
+import {Device} from "../../models/device";
 
 export function DeviceListFilters() {
   const debouncedTimeoutID = useRef<ReturnType<typeof setTimeout>>(undefined);

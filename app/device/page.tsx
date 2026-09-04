@@ -1,11 +1,11 @@
 import {Suspense} from "react";
 import {Skeleton} from "#/components/ui/skeleton";
 import {DeviceList, DeviceListSkeleton} from "#/features/device/components/device-list";
-import {DeviceListFilters} from "#/features/device/components/device-list-filters";
+import {DeviceListFilters} from "#/features/device/components/device-list/device-list-filters";
 
 export default function DeviceListPage(props: PageProps<"/device">) {
   return (
-    <div className="group flex flex-col gap-8">
+    <div className="group flex flex-col gap-8 pb-5">
       <Suspense fallback={<Skeleton className="h-8 w-full" />}>
         <DeviceListFilters />
       </Suspense>

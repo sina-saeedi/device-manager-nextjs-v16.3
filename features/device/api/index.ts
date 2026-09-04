@@ -1,5 +1,8 @@
+/**
+ * Faked backend API requests
+ */
 import {sleep} from "#/lib/utils";
-import {Device} from "../types";
+import {Device} from "../models/device";
 
 const devices: Device[] = [
   {id: "1", name: "Core-Switch-01", ip: "192.168.1.1", status: "online", lastPing: "۲ دقیقه پیش"},
@@ -24,14 +27,19 @@ export async function fetchDevices({status = [], q = ""}: FetchDevicesParams) {
   });
 }
 
-export async function addDevice(device: Device) {
+export async function createDevice(device: Omit<Device, "lastPing" | "id">) {
   await sleep();
-  devices.push(device);
+  devices.unshift({
+    ...device,
+    id: Math.floor(Math.random() * 100000).toString(),
+    lastPing: `${Math.floor(Math.random() * 100)} دقیقه پیش`
+  });
   return device;
 }
 
 export async function deleteDevice(deviceId: Device["id"]) {
   await sleep();
-  const index = devices.findIndex((device) => device.id !== deviceId);
+  if (devices.length === 1) throw Error("Can't delete all devices there must be at least one device left");
+  const index = devices.findIndex((device) => device.id === deviceId);
   return devices.splice(index, 1);
 }
